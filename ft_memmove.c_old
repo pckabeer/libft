@@ -1,0 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kpanikka <kpanikka@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/20 09:59:25 by kpanikka          #+#    #+#             */
+/*   Updated: 2021/12/21 21:39:04 by kpanikka         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+void	*ft_memmove(void *dst, const void *src, size_t len)
+{
+	size_t	i;
+	char *a;
+	char *b;
+	int size;
+
+	i = 0;
+	a = (char *) dst;
+	b = (char *) src;
+	size =-1;// b-a;
+//	if(size < 0)
+//		size = 0;
+	
+	if(!a[i] && !b[i])
+		return(a);
+	if(size < 0)
+	{
+		while (i < len)
+		{
+			a[i] = b[i];
+			i++;
+		}
+	}
+	else
+	{
+		while (len-- > 0)
+			a[len] = b[len];
+	}
+	return (b);
+}

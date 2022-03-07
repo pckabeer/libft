@@ -1,0 +1,79 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kpanikka <kpanikka@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/01 11:32:22 by kpanikka          #+#    #+#             */
+/*   Updated: 2022/01/22 12:31:13 by kpanikka         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+#include "libft.h"
+#include <stdio.h>
+
+static void	ft_free(char **s, int i)
+{
+	if (!s)
+	{
+		while (i-- != 0)
+			free(s[i]);
+		free(s);
+	}
+}
+
+char **ft_split(char const *s, char c)
+{
+	int i;
+	char *ptr;
+	char **p;
+	char *ptr_loc;
+
+	if(!s)
+		return (NULL);
+	i = 0;
+	ptr = (char *) ft_strtrim(s, &c);
+	if(!ptr)
+		return (NULL);
+	if(*ptr == '\0')
+		return ((char **)ft_calloc(1,sizeof(char **)));
+	while((ptr = (ft_strchr(ptr, c))) != NULL)
+	{
+		if(*(ptr + 1) != c && *(ptr+1) != '\0')
+			i++;
+		ptr++;
+	}
+	if(ptr != NULL)
+	if(!i && *(ptr - 1)==c)
+		return ((char **)ft_calloc(1,sizeof(char **)));
+	p = (char **) malloc((i + 2)*sizeof(char **));
+	if(!p)
+		return (NULL);
+	ptr = ptr_loc = (char *) ft_strtrim(s, &c);
+
+	i = 0;
+	int  j;
+	while((ptr = (ft_strchr(ptr, c))) != NULL)
+	{
+		//if(*(ptr - 1) != c)
+		j = ptr - ptr_loc;
+		while(*ptr == c)
+			ptr++;
+	//	if(*(ptr + 1) != c)
+	//	{
+		p[i] = ft_substr(ptr_loc,0,j);
+		ft_free(p, i++);
+	//	}
+		ptr_loc = ptr;
+	}
+	char *ptr1; 
+	ptr1 = (char *)ft_strtrim(s,&c);
+	while(*ptr1)
+		ptr1++;
+
+		p[i] = ft_substr(ptr_loc,0,ptr1-ptr_loc);
+	
+		ft_free(p, i);
+	p[i + 1] = 0;
+	return (p);
+}
